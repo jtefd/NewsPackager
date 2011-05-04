@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/6/trunk/NewsPackager
+END
+DB.pm
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/2/trunk/NewsPackager/DB.pm
+END
+RSSFeed.pm
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/7/trunk/NewsPackager/RSSFeed.pm
+END
+Parser.pm
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/2/trunk/NewsPackager/Parser.pm
+END
+Assembler.pm
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/9/trunk/NewsPackager/Assembler.pm
+END
