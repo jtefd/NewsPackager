@@ -55,7 +55,7 @@ use Getopt::Long;
 use Module::Load;
 use NewsPackager::Assembler;
 use NewsPackager::DB;
-use NewsPackager::Parser::Util;
+use NewsPackager::Util;
 use NewsPackager::Persister;
 use Pod::Usage;
 
