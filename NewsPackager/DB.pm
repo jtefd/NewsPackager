@@ -2,21 +2,23 @@ package NewsPackager::DB;
 
 use NewsPackager::DB::Schema;
 
-my $schema;
+use vars qw/$__schema $__connect_info/;
 
-my $connect_info = {
+$__connect_info = {
 	dbname => 'newspkg',
 	username => 'newspkg',
 	password => 'newspkg'
 };
 
-sub schema {
+sub schema() {
 	unless (defined($schema)) {
-		$schema = NewsPackager::DB::Schema->connect('dbi:Pg:dbname=' . $connect_info->{'dbname'}, $connect_info->{'username'}, $connect_info->{'password'});
+		$__schema = NewsPackager::DB::Schema->connect(
+			sprintf('dbi:Pg:dbname=%s', $__connect_info->{'dbname'}),
+			$__connect_info->{'username'}, 
+			$__connect_info->{'password'});
 	}
 	
-	return $schema;
+	return $__schema;
 }
 
 1;
-

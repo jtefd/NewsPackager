@@ -53,10 +53,10 @@ use strict;
 
 use Getopt::Long;
 use Module::Load;
-use NewsPackager::DB;
-use NewsPackager::RSSFeed;
-use NewsPackager::Parser::Util;
 use NewsPackager::Assembler;
+use NewsPackager::DB;
+use NewsPackager::Parser::Util;
+use NewsPackager::Persister;
 use Pod::Usage;
 
 my %opts;
@@ -64,18 +64,14 @@ my %opts;
 GetOptions(
 	\%opts, 
 	'help',
-	'man',
 	'install-db',
 	'scan',
 	'assemble',
 	'out=s'
 );	
 
-if ($opts{'help'}) {
+if ($opts{'help'} || scalar(keys %opts) == 0) {
 	pod2usage( -verbose => 1, -exitval => 0 );
-}
-elsif ($opts{'man'}) {
-	pod2usage( -verbose => 2, -exitval => 0 )
 }
 elsif ($opts{'install-db'}) {
 	my $schema = NewsPackager::DB::schema;
@@ -83,12 +79,15 @@ elsif ($opts{'install-db'}) {
 	$schema->deploy( { add_drop_table => 1 } );
 }
 elsif ($opts{'scan'}) {
-	foreach my $parser (NewsPackager::Parser::Util::listParsers) {
+	my $persister = NewsPackager::Persister->new();
+	
+	foreach my $parser (NewsPackager::Util::ListParsers) {
 		eval {
 			load $parser;
 			
-			my $rssfeed = NewsPackager::RSSFeed->new(parser => $parser->new());
-			$rssfeed->cacheItems();		
+			foreach my $feed ($parser->get_feeds()) {
+				$persister->persist($feed);
+			}
 		} or do {
 			print STDERR $@, "\n";
 		};

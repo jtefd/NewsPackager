@@ -1,7 +1,5 @@
 package NewsPackager::Assembler;
 
-use Moose;
-
 use Date::Simple qw/today/;
 use Digest::MD5 qw/md5_hex/;
 use Encode qw/decode/;
@@ -14,6 +12,12 @@ use NewsPackager::DB;
 use POSIX qw/strftime/;
 
 use constant ENCODING => 'UTF-8';
+
+sub new() {
+	my ($class) = @_;
+	
+	return bless({}, $class);
+}
 
 sub source {
 	my $schema = NewsPackager::DB::schema;
